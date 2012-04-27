@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+  <li class="<%= action_active('index') %>">
+    <%= link_to categories_path do %>
+        <i class="icon-list-alt"></i>
+        Category Index
+    <% end %>
+  </li>
+  
+  <li class="<%= action_active('new') %>">
+    <%= link_to new_category_path do %>
+      <i class="icon-plus"></i>
+      Create New Category
+    <% end %>
+  </li>
+</ul>

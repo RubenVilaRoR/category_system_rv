@@ -1,0 +1,15 @@
+<%= simple_form_for(@activity) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.association :category, collection: current_user.user_categories %>
+    <%= f.input :date %>
+    <%= f.input :info, input_html: {class: 'span8 text', rows: 5 } %>
+    <%= f.input :tags %>
+    <%= f.input :priority %>
+    <%= f.input :attachment, as: :file %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

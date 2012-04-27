@@ -1,0 +1,40 @@
+<%= render :partial => "menu" %>
+
+<div class="well">
+  <p>
+    <b>Date:</b>
+    <%= @activity.date.to_s(:detail) %>
+  </p>
+
+  <p>
+    <b>Info:</b>
+    <%= @activity.info %>
+  </p>
+
+  <p>
+    <b>Created By:</b>
+    <%= @activity.user.name %> (<%= @activity.user.username %>)
+  </p>
+
+  <p>
+    <b>Tags:</b>
+    <%= @activity.tags %>
+  </p>
+  
+  <p>
+    <b>Priority:</b>
+    <%= @activity.priority %>
+  </p>
+  
+  <% unless @activity.attachment.blank? %>
+  <p>
+    <b>Attachment:</b>
+    <%= link_to @activity.attachment.uploaded_filename, @activity.attachment.url %>
+  </p>
+  <% end %>
+    
+  <p>
+    <%= link_to "Edit", edit_activity_path(@activity), class: 'btn' %>
+    <%= link_to "Delete", activity_path(@activity), class: 'btn btn-danger', method: :delete, confirm: 'Are you sure?' %>
+  </p>
+</div>

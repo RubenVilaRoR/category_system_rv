@@ -1,0 +1,64 @@
+<%= render :partial => "menu" %>
+<div class="well" id='category-info'>
+  <p>
+    <div class="row">
+      <div class="span11">
+        <h2 style="color: #<%= @category.color %>"><%= @category.name %></h2>
+      </div>
+    </div>
+  </p>
+  
+  <p>
+    <b>Category Name:</b>
+    <%= @category.name %>
+  </p>
+  
+  <p>
+    <b>Folder:</b>
+    <%= @category.folder.try(:name) %>
+  </p>
+  
+  
+  <p>
+    <%= link_to "edit", edit_category_path(@category), class: 'btn btn-medium' %>
+    <%= link_to "delete", category_path(@category), method: :delete, confirm: 'This will also delete activities in this category. Are you sure?', class: 'btn btn-danger' %>
+  </p>  
+</div>
+
+<div id="activities">
+  <p><%= link_to "Add Activity", new_activity_path(category: @category), class: 'btn btn-primary btn-medium' %></p>
+  <% if @activities.blank? %>
+    <p class="well">There currently no activity in this category</p>
+  <% else %>
+      <p>Displaying <strong><%= @activities.offset_value + 1 %> - <%= @activities.offset_value + @activities.length %> of <%= @activities.total_count %></strong></p>
+    <table class="table table-striped">
+      <tr>
+        <th><%= sort_link(@search, :date) %></th>
+        <th><%= sort_link(@search, :info) %></th>
+        <th><%= sort_link(@search, :tags) %></th>
+        <th><%= sort_link(@search, :user_name, "Created by") %></th>
+        <th></th>
+      </tr>
+    <% for activity in @activities %>
+      <tr>
+        <td class="span2"><%= activity.date.to_s(:long) %></td>
+        <td class="span5">
+          <% if activity.attachment? %>
+            <i class="icon-file"></i>
+          <% end %>
+          <%= activity.info %>
+        </td>
+        <td class="span2"><%= activity.tags %></td>
+        <td><%= activity.user.name %></td>
+        <td>
+          <%= link_to "Detail", activity_path(activity), class: 'btn btn-mini'%>
+          <%= link_to "Edit", edit_activity_path(activity), class: 'btn btn-mini'%>
+          <%= link_to "Delete", activity_path(activity), class: 'btn btn-mini btn-danger', method: :delete, confirm: 'Are you sure?'%>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    
+    <%= paginate @activities %>
+  <% end %>
+</div>

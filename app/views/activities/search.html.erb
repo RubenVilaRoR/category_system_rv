@@ -1,0 +1,36 @@
+<%= render :partial => "search_form", locals: {q: @q} %>
+<div id="search-result">
+  <% if @activities.blank? %>
+    <% if params[:q] %>
+      <p class="well">Your search does not generate a result</p>
+    <% end %>
+  <% else %>
+    <p>Displaying <strong><%= @activities.offset_value + 1 %> - <%= @activities.offset_value + @activities.length %> of <%= @activities.total_count %></strong></p>
+    <table class="table table-striped">
+      <tr>
+        <th><%= sort_link(@q, :date) %></th>
+        <th><%= sort_link(@q, :category_name, "Category") %></th>
+        <th><%= sort_link(@q, :info) %></th>
+        <th><%= sort_link(@q, :tags) %></th>
+        <th><%= sort_link(@q, :activity_user_name, "Created By") %></th>
+        <th></th>
+      </tr>
+    <% for activity in @activities %>
+      <tr>
+        <td class="span1"><%= activity.date.to_s(:short) %></td>
+        <td class="span1"><%= activity.category.try(:name) %></td>
+        <td class="span5"><%= activity.info %></td>
+        <td class="span1"><%= activity.tags %></td>
+        <td><%= activity.user.name %></td>
+        <td class="span3">
+          <%= link_to "Detail", activity_path(activity), class: 'btn btn-mini'%>
+          <%= link_to "Edit", edit_activity_path(activity), class: 'btn btn-mini'%>
+          <%= link_to "Delete", activity_path(activity), class: 'btn btn-mini btn-danger', method: :delete, confirm: 'Are you sure?'%>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    <%= paginate @activities %>
+  <% end %>
+  
+</div>

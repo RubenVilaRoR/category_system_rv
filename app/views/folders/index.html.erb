@@ -1,0 +1,31 @@
+<div class="folders">
+  <p><%= link_to "Add Folder", new_folder_path, class: 'btn btn-primary btn-medium' %></p>
+
+  <% if @folders.blank? %>
+    <div class="well">You don't currently have any folder</div>
+  <% else %>
+    <h1>Your folders</h1>
+
+    <div class="span5">
+    <table class="table table-striped" id="folder-list">
+      <thead>
+      <tr>
+        <th class="span3">Name</th>
+        <th class="span2"></th>
+      </tr>
+      </thead>
+      <tbody data-url="<%= sort_folders_url %>">
+    <% @folders.each do |folder| %>
+      <%= content_tag_for :tr, folder do %>
+        <td><i class="icon-move"></i> <%= folder.name %></td>
+        <td>
+          <%= link_to 'Edit', edit_folder_path(folder), class: 'btn btn-mini' %>
+          <%= link_to 'Destroy', folder, confirm: 'Are you sure?', method: :delete, class: 'btn btn-mini btn-danger' %>
+        </td>
+      <% end %>
+    <% end %>
+    </tbody>
+    </table></div>
+
+  <% end %> 
+</div>

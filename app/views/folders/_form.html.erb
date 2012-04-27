@@ -1,0 +1,14 @@
+<%= simple_form_for(@folder) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :use_privacy %>
+    <% users = @folder.users.each{|user| user.name = "#{user.name} (#{user.email})"} %>
+    <%= f.input :user_tokens, label: "Users", input_html: {"data-pre" => users.to_json(only: [:id, :name])} %>    
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,38 @@
+<div class="row-fluid">
+  <div class="span6">
+    <div class="banner">
+      <h1>ozzcat</h1>
+      <p class="subtitle">-Category System</p>
+    </div>
+  </div>
+  <div class="span6">  
+  <%= form_tag sessions_path, class: 'form-horizontal' do %>
+    <fieldset>
+      <legend>Log In</legend>
+      <div class="control-group">
+        <label class="control-label" for="username">Username</label>
+        <div class="controls">
+          <%= text_field_tag :username, nil, class: "input-xlarge" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="password">Password</label>
+        <div class="controls">
+          <%= password_field_tag :password, nil, class: "input-xlarge", id: "password" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" for="rember_me">Remember me</label>
+        <div class="controls">
+          <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+        </div>
+      </div>
+      <div class="controls">
+          <%= submit_tag "Log in", class: 'btn btn-primary' %>
+          or
+          <%= link_to "Sign Up", signup_path, class: 'btn btn-success' %>
+      </div>
+    </fieldset>
+  <% end -%>
+  </div>
+</div>

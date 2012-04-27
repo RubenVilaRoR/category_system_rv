@@ -1,0 +1,26 @@
+<% recaptcha ||= false %>
+<%= simple_form_for @user, html: {class: 'form-horizontal'} do |f| -%>
+  <%= f.error_notification %>
+  <fieldset>
+    <legend>User Form</legend>
+    
+    <%= f.input :username, hint: 'Username required for login and are case sensitive. minimum 5 characters'%>
+    <%= f.input :name %>
+    <%= f.input :email %>
+    <%= f.input :organization_name, required: true unless current_user %>    
+    
+    <div class="well">  
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+    </div>
+    
+    <% if recaptcha %>
+      <%= recaptcha_tags %>
+    <% end %>
+    
+    <div class="form-actions">
+        <%= f.button :submit, class: 'btn btn-primary' %>
+        <%= submit_tag "Reset", class: 'btn', type: 'reset' %>
+    </div>
+  </fieldset>
+<% end -%>

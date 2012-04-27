@@ -1,0 +1,67 @@
+<div id="simple-search-form">
+  <%= search_form_for q,:url => search_activities_path, :html => {method: :post, class: 'well form-search'}  do |f| %>
+  <fieldset>
+    <%= f.text_field :info_or_tags_cont, class: "input-medium search-query" %>
+    <button type="submit" class="btn">Search</button>
+    <a href="#" id="advance-search">advance</a>
+  <% end %>
+  </fieldset>
+</div>
+
+<div id="advance-search-form" style="display: none">
+  <%= search_form_for q,:url => search_activities_path, :html => {method: :post, class: 'form-horizontal'}  do |f| %>
+  <fieldset>
+  <legend>Search Activity</legend>
+  <div class="control-group">
+    <%= f.label :info_cont, "Info", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :info_cont %>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <%= f.label :priority_cont, "Priority", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :priority_cont %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :category_name_cont, "Category", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :category_name_cont %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :folder_name_cont, "Folder", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :category_folder_name_cont %>
+    </div>
+  </div>
+
+  
+  <div class="control-group">
+    <%= f.label :tags_cont, "Tags", class: 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :tags_cont %>
+    </div>
+  </div>
+  
+  
+  <div class="control-group">
+    <%= f.label :date_gteq, "Date", class: 'control-label' %>
+    <div class="controls">
+      <%= f.date_select :date_gteq, include_blank: true, default: nil %> - 
+      <%= f.date_select :date_lteq, include_blank: true, default: nil  %> 
+    </div>
+  </div>
+  
+  <div class="form-actions">
+    <%= f.submit class: 'btn btn-primary' %>
+    <input type="reset" class='btn'></input>
+    <a href="#" id="advance-search">simple</a>
+  </div>  
+  </fieldset>
+  <% end %>
+</div>

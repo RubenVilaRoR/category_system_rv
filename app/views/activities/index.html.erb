@@ -1,0 +1,40 @@
+<div id="activities">
+  <p><%= link_to "Add Activity", new_activity_path, class: 'btn btn-primary btn-medium' %></p>
+  <%= render :partial => "activities/search_form", locals: {q: @q} %>
+  <% if @activities.blank? %>
+    <p class="well">You don't currently have activity</p>
+  <% else %>
+    <h2>Your Activities</h2>
+    <p>Displaying <strong><%= @activities.offset_value + 1 %> - <%= @activities.offset_value + @activities.length %> of <%= @activities.total_count %></strong></p>
+    <table class="table table-striped">
+      <tr>
+        <th><%= sort_link(@q, :date) %></th>
+        <th><%= sort_link(@q, :category_name, "Category") %></th>
+        <th><%= sort_link(@q, :info) %></th>
+        <th><%= sort_link(@q, :tags) %></th>
+        <th><%= sort_link(@q, :activity_user_name, "Created By") %></th>
+        <th></th>
+      </tr>
+    <% for activity in @activities %>
+      <tr>
+        <td class="span2"><%= activity.date.to_s(:long) %></td>
+        <td class="span1"><%= activity.category.try(:name) %></td>
+        <td class="span5">
+          <% if activity.attachment? %>
+            <i class="icon-file"></i>
+          <% end %>
+          <%= activity.info %>
+        </td>
+        <td class="span1"><%= activity.tags %></td>
+        <td><%= activity.user.name %></td>
+        <td class="span3">
+          <%= link_to "Detail", activity_path(activity), class: 'btn btn-mini'%>
+          <%= link_to "Edit", edit_activity_path(activity), class: 'btn btn-mini'%>
+          <%= link_to "Delete", activity_path(activity), class: 'btn btn-mini btn-danger', method: :delete, confirm: 'Are you sure?'%>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+    <%= paginate @activities %>
+  <% end %>
+</div>

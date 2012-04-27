@@ -1,0 +1,15 @@
+<ul class="nav nav-tabs">
+  <li class="<%= action_active('index') %>">
+    <%= link_to admin_users_path do %>
+        <i class="icon-list-alt"></i>
+        Index
+    <% end %>
+  </li>
+  
+  <li class="<%= action_active('new') %>">
+    <%= link_to new_admin_user_path do %>
+      <i class="icon-plus"></i>
+      Create New
+    <% end %>
+  </li>
+</ul>

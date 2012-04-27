@@ -1,0 +1,46 @@
+<%= render :partial => "menu" %>
+<%= render :partial => "activities/search_form", locals: {q: @search} %>
+
+  <% i = 0 %>
+  <h2>Category List</h2>
+  <div class="row">
+    <div class="pull-right">
+      Order: <%= sort_link @q, :name, {}, {class: 'btn btn-mini'}  %> <%= sort_link @q, :color, {}, {class: 'btn btn-mini'} %> <%= sort_link @q, :group, {}, {class: 'btn btn-mini'} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="span2 folders well">
+      <ul class="nav nav-list">
+        <li class="nav-header">Folders</li>
+        <li class="<%= @folder.nil? ? "active" : "" %>"><%= link_to "All", categories_path %></li>
+
+        <% @folders.each do |folder| %>
+        <li class="<%= folder == @folder ? "active" : "" %>"><%= link_to folder.name, categories_path(folder: folder) %></li>  
+        <% end %>
+
+      </ul>
+    </div>
+    <div id="category-list" class="span9">
+      <% if @categories.blank? %>
+        <div class="well">
+          No category found
+        </div>
+      <% else %>
+        
+        <% @categories.each do |category| %>
+          <% if i % 7 == 0 %>
+          <div class="row">
+          <% end %>
+            <% bgcolor = "background-color: ##{category.color}" unless category.color.blank? %>
+            <% html_class = "color" unless category.color.blank? %>
+            <%= link_to category, class: "btn span1 #{html_class}", style: "#{bgcolor}" do %>
+              <%= category.name %>
+            <% end %> 
+          <% if i % 7 == 6 %>
+          </div>
+          <% end %>
+          <% i = i + 1 %>
+        <% end %>    
+      <% end %>
+    </div>
+  </div>
